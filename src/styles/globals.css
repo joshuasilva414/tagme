@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body,
+html {
+	overflow-x: hidden;
+	scroll-behavior: smooth;
+}
+
+.text-shadow-dark {
+	text-shadow: 0 4px 0 rgb(13 148 136);
+}
+
+.text-shadow-light {
+	text-shadow: 0 4px 0 rgb(13 148 136);
+}
+
+.text-shadow-gray {
+	text-shadow: 0 4px 0 rgb(163 163 163);
+}
