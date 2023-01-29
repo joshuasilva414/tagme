@@ -6,14 +6,11 @@ import {
 import { useEffect, type ReactElement } from "react";
 import ProjectCard from "@/components/dash/ProjectCard";
 
-type Props = {
-  projects?: any;
-};
+// type Props = {
+//   projects?: any;
+// };
 
-const Dash: NextPage = ({ projects }: Props) => {
-  useEffect(() => {
-    console.log("props: ", projects);
-  });
+const Dash: NextPage = () => {
   return (
     <div className="bg-white h-screen">
       <div className="w-full max-w-[1200px] mx-auto pt-10 border-b-gray-200 border-b-2 grid grid-cols-2">
@@ -29,20 +26,11 @@ const Dash: NextPage = ({ projects }: Props) => {
         </div>
       </div>
       <div className="min-h-screen grid-cols-3 mx-auto max-w-[1200px] pt-5">
-        {projects &&
-          (() => {
-            const els: ReactElement[] = [];
-            for (const item of projects) {
-              els.push(
-                <ProjectCard
-                  name={item.name}
-                  active={item.active}
-                  projID={item.id}
-                />
-              );
-            }
-            return els;
-          })()}
+        <ProjectCard
+          name={"English Sentiment Analysis Dataset"}
+          active
+          projID="63d695e83912d87d8a8329e9"
+        />
       </div>
     </div>
   );
@@ -62,14 +50,14 @@ const Dash: NextPage = ({ projects }: Props) => {
 //   return ;
 // };
 
-export const getServerSideProps = async (context: any) => {
-  const res = await fetch("http://localhost:3000/projects/");
-  console.log("res: ", res);
-  return {
-    props: {
-      projects: res.json(),
-    },
-  };
-};
+// export const getServerSideProps = async (context: any) => {
+//   const res = await fetch("http://localhost:3000/projects/");
+//   console.log("res: ", res);
+//   return {
+//     props: {
+//       projects: res.json(),
+//     },
+//   };
+// };
 
 export default Dash;
