@@ -2,16 +2,20 @@ import mongoose, { model, Schema } from "mongoose";
 import { ITask, taskSchema } from "./task";
 import { IExample, exampleSchema } from "./example";
 
-export interface IProject extends mongoose.Document {
+export interface IProject {
 	name: String;
 	description: String;
-	pipeline: ITask[];
+	task: ITask;
 	examples: IExample[];
+	active: Boolean;
 }
 
-export default new Schema<IProject>({
+export const projectSchema = new Schema<IProject>({
 	name: { type: String, required: true },
 	description: { type: String, required: true },
-	pipeline: [{ type: taskSchema, default: [] }],
-	examples: [{ type: exampleSchema, default: [] }],
+	task: { type: String, required: false },
+	examples: [{ type: exampleSchema, default: [], required: true }],
+	active: {type: Boolean, required: true}
 });
+
+export const Project = mongoose.models.Project || model<IProject>("Project", projectSchema, "projects");
