@@ -1,16 +1,13 @@
 import React from "react";
-import { ITask } from "@/lib/schemas/task";
-import { IProject } from "@/lib/schemas/project";
-import { ITaskField } from "@/lib/schemas/task";
-import { IExample } from "@/lib/schemas/example";
+import { Prisma, FieldType, PrismaClient } from "@prisma/client";
 
 type Props = {
-  project?: IProject;
-  task?: ITask;
-  error?: any;
+  project: Prisma.ProjectGetPayload<{
+    select: { [K in keyof Required<Prisma.ProjectSelect>]: true };
+  }>;
 };
 
-const SingleTaskView = ({ project, task, error }: Props) => {
+const SingleTaskView = ({ project }: Props) => {
   return (
     <>
       <div className="grid grid-cols-3">
@@ -24,7 +21,9 @@ const SingleTaskView = ({ project, task, error }: Props) => {
           <div className="">
             <div className="flex flex-column items-center justify-between">
               <h1 className=" font-calsans text-7xl bold">{project?.name}</h1>
-              <p className=" font-calsans text-3xl ">{project?.description}</p>
+              <p className=" font-calsans text-3xl ">
+                {project?.task?.description}
+              </p>
             </div>
           </div>
           <div className="flex justify-center items-center py-[25px] px-[10px]">
@@ -33,9 +32,9 @@ const SingleTaskView = ({ project, task, error }: Props) => {
 
           <div className="py-[25px] px[10px]">
             <p>
-              {task?.taskFields.map(
+              {project.task?.fields.map(
                 (taskField) =>
-                  taskField.fieldType == "String" && <input type="text" />
+                  taskField.fieldType == FieldType.TEXT && <input type="text" />
               )}
             </p>
             <input type="text"></input>
@@ -47,23 +46,10 @@ const SingleTaskView = ({ project, task, error }: Props) => {
 };
 
 export const getServerSideProps = async (context: any) => {
-  const res = await fetch(
-    `https://localhost:3000/projects/${context.params.projectId}`
-  )
-    .then((res) => {
-      const project = res.json();
-      return {
-        props: {
-          project,
-        },
-      };
-    })
-    .catch((e) => {
-      console.log(e.message);
-      return {
-        error: e,                                                                                                                    
-      };
-    });
+  const { projectId } = context.params;
+  const prisma = new PrismaClient();
+  const project = await prisma.project.findUnique({ where: { id: projectId } });
+  return { props: { project: JSON.parse(JSON.stringify(project)) } };
 };
 
 export default SingleTaskView;

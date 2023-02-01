@@ -3,14 +3,16 @@ import {
   GetServerSidePropsContext,
   type NextPage,
 } from "next";
-import { useEffect, type ReactElement } from "react";
+import { Prisma, PrismaClient } from "@prisma/client";
 import ProjectCard from "@/components/dash/ProjectCard";
 
-// type Props = {
-//   projects?: any;
-// };
+type Props = {
+  projects: Prisma.ProjectGetPayload<{
+    select: { [K in keyof Required<Prisma.ProjectSelect>]: true };
+  }>[];
+};
 
-const Dash: NextPage = () => {
+const Dash: NextPage<Props> = ({ projects }: Props) => {
   return (
     <div className="bg-white h-screen">
       <div className="w-full max-w-[1200px] mx-auto pt-10 border-b-gray-200 border-b-2 grid grid-cols-2">
@@ -26,38 +28,26 @@ const Dash: NextPage = () => {
         </div>
       </div>
       <div className="min-h-screen grid-cols-3 mx-auto max-w-[1200px] pt-5">
-        <ProjectCard
-          name={"English Sentiment Analysis Dataset"}
-          active
-          projID="63d695e83912d87d8a8329e9"
-        />
+        {projects.map((project) => (
+          <ProjectCard
+            key={project.id}
+            name={project.name}
+            active={project.active}
+            projID={project.id}
+          ></ProjectCard>
+        ))}
       </div>
     </div>
   );
 };
 
-// export const getServerSideProps = async (context: any) => {
-//   let req = await fetch("http://localhost:3000/api/projects/", {
-//     method: "POST",
-//   })
-//     .then((res) => {
-//       return { props: { projects: res.json } };
-//     })
-//     .catch((err) => {
-//       console.log(err.message);
-//       return { error: err };
-//     });
-//   return ;
-// };
-
-// export const getServerSideProps = async (context: any) => {
-//   const res = await fetch("http://localhost:3000/projects/");
-//   console.log("res: ", res);
-//   return {
-//     props: {
-//       projects: res.json(),
-//     },
-//   };
-// };
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const prisma = new PrismaClient();
+  const projects = await prisma.project.findMany();
+  console.dir(projects);
+  return { props: { projects: JSON.parse(JSON.stringify(projects)) } };
+};
 
 export default Dash;

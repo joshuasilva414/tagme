@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type Example {
+  inputTypes  MediaType[] @default([TEXT])
+  outputTypes MediaType[] @default([TEXT])
+  input       String
+  outputs     String
+}
+
+type Field {
+  prompt    String
+  fieldType FieldType?
+}
+
+type Task {
+  description String
+  fields      Field[]
+}
+
+model Project {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  createdAt   DateTime  @default(now())
+  description String    @default("")
+  task        Task
+  examples    Example[]
+  active      Boolean   @default(true)
+}
+
+enum MediaType {
+  TEXT
+  IMAGE
+  VIDEO
+  NUMBER
+}
+
+enum FieldType {
+  SINGLE_CLASS
+  MULTI_CLASS
+  IMAGE
+  TEXT
+}
