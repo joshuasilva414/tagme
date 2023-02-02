@@ -79,8 +79,9 @@ const SingleTaskView = ({
 
 export const getServerSideProps = async (context: any) => {
   const { projectId } = context.params;
-  const prisma = Prisma.PrismaClientFetcher || new PrismaClient();
+  const prisma = new PrismaClient();
   const project = await prisma.project.findUnique({ where: { id: projectId } });
+  await prisma.$disconnect();
   return { props: { project: JSON.parse(JSON.stringify(project)) } };
 };
 

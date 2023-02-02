@@ -2,9 +2,11 @@ import {
   GetServerSideProps,
   GetServerSidePropsContext,
   type NextPage,
+  InferGetServerSidePropsType,
 } from "next";
 import { Prisma, PrismaClient } from "@prisma/client";
 import ProjectCard from "@/components/dash/ProjectCard";
+import { getPrismaClient } from "@prisma/client/runtime";
 
 type Props = {
   projects: Prisma.ProjectGetPayload<{
@@ -12,7 +14,9 @@ type Props = {
   }>[];
 };
 
-const Dash: NextPage<Props> = ({ projects }: Props) => {
+const Dash: NextPage<Props> = ({
+      projects,
+    }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <div className="bg-white h-screen">
       <div className="w-full max-w-[1200px] mx-auto pt-10 border-b-gray-200 border-b-2 grid grid-cols-2">
@@ -28,13 +32,16 @@ const Dash: NextPage<Props> = ({ projects }: Props) => {
         </div>
       </div>
       <div className="min-h-screen grid-cols-3 mx-auto max-w-[1200px] pt-5">
-        {projects.map((project) => (
-          project.active && <ProjectCard
-            key={project.id}
-            name={project.name}
-            projID={project.id}
-          ></ProjectCard>
-        ))}
+        {projects.map(
+          (project) =>
+            project.active && (
+              <ProjectCard
+                key={project.id}
+                name={project.name}
+                projID={project.id}
+              ></ProjectCard>
+            )
+        )}
       </div>
     </div>
   );
@@ -45,6 +52,7 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const prisma = new PrismaClient();
   const projects = await prisma.project.findMany();
+  prisma.$disconnect();
   console.dir(projects);
   return { props: { projects: JSON.parse(JSON.stringify(projects)) } };
 };
