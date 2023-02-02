@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Prisma, FieldType, PrismaClient } from "@prisma/client";
 
 type Props = {
@@ -10,22 +11,23 @@ type Props = {
 const SingleTaskView = ({ project }: Props) => {
   return (
     <>
-      <div className="grid grid-cols-3">
-        <div className="h-[60px]">
-          <button className="">
-            <img src="/img/backarrow.png" />
-          </button>
-        </div>
+      <div className="flex items-center h-[60px] p-[10px]">
+        <Link href="/app/dash">
+          <img src="/img/backarrow.png" alt="back button"/>
+        </Link>
+      </div>
 
-        <div className="grid grid-cols-3">
+      <div className="grid grid-cols-3 h-[75vh]">
+        <div className=" p-[50px]">
           <div className="">
-            <div className="flex flex-column items-center justify-between">
+            <div className="flex-wrap flex-column items-center justify-center">
               <h1 className=" font-calsans text-7xl bold">{project?.name}</h1>
               <p className=" font-calsans text-3xl ">
                 {project?.task?.description}
               </p>
             </div>
           </div>
+
           <div className="flex justify-center items-center py-[25px] px-[10px]">
             <div className="flex justify-center items-center bg-white">{}</div>
           </div>

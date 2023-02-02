@@ -29,10 +29,9 @@ const Dash: NextPage<Props> = ({ projects }: Props) => {
       </div>
       <div className="min-h-screen grid-cols-3 mx-auto max-w-[1200px] pt-5">
         {projects.map((project) => (
-          <ProjectCard
+          project.active && <ProjectCard
             key={project.id}
             name={project.name}
-            active={project.active}
             projID={project.id}
           ></ProjectCard>
         ))}
