@@ -3,18 +3,22 @@ import {
   GetServerSidePropsContext,
   type NextPage,
   InferGetServerSidePropsType,
-} from "next";
+ } from "next";
+
+import Link from "next/link";
 import { Prisma, PrismaClient } from "@prisma/client";
 import ProjectCard from "@/components/dash/ProjectCard";
 import { getPrismaClient } from "@prisma/client/runtime";
-
-type Props = {
+ 
+ 
+ type Props = {
   projects: Prisma.ProjectGetPayload<{
     select: { [K in keyof Required<Prisma.ProjectSelect>]: true };
   }>[];
-};
-
-const Dash: NextPage<Props> = ({
+ };
+ 
+ 
+ const Dash: NextPage<Props> = ({
       projects,
     }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
@@ -27,7 +31,9 @@ const Dash: NextPage<Props> = ({
         </div>
         <div className="flex justify-end">
           <button className="bg-slate-800 text-white m-2 rounded-full aspect-square ease-in-out hover:bg-slate-700 font-bold">
-            +
+            <Link href="/app/projects/form">
+              +
+            </Link>
           </button>
         </div>
       </div>
@@ -45,16 +51,18 @@ const Dash: NextPage<Props> = ({
       </div>
     </div>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async (
+ };
+ 
+ 
+ export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
-) => {
+ ) => {
   const prisma = new PrismaClient();
   const projects = await prisma.project.findMany();
   prisma.$disconnect();
   console.dir(projects);
   return { props: { projects: JSON.parse(JSON.stringify(projects)) } };
-};
-
-export default Dash;
+ };
+ 
+ 
+ export default Dash; 
