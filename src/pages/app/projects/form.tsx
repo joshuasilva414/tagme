@@ -4,7 +4,19 @@ import { useState } from 'react';
 
 //  Form
 function Form() {
-  const [taskList, setTaskList] = useState([{task: "" }]);
+  const [taskList, setTaskList] = useState([
+    {task: "" },
+  ]);
+
+  const handleTaskAdd = () => {
+    setTaskList([...taskList, { task: "" }]);
+  };
+
+  const handleTaskRemove = (index) => {
+    const list = [...taskList];
+    list.splice(index, 1);
+    setTaskList(list);
+  };
 
   return (
   <>
@@ -21,45 +33,31 @@ function Form() {
 
           {/* Form */}
           <div className="overflow-hidden shadow sm:rounded-md">
-            <div className="bg-teal-500 px-4 py-5 sm:p-6 h-screen">
-              <div className="grid grid-cols-6 gap-6 rounded-lg bg-white p-5 shadow-lg">
+            <div className="flex items-start bg-teal-500 px-4 py-5 sm:p-6 h-screen">
+              <div className="grid grid-cols-3 gap-6 w-1/5 rounded-lg bg-white p-5 shadow-lg">
 
-                {/*  First Name */}
+                {/* Project Name */}
                 <div className="cole-span-6 sm:col-span-3">
                   <label 
                     htmlFor="Name"
                     className="block text-sm font-medium leading-6 text-gray-900">
-                    First Name:
+                    Project Name:
                   </label>
                   <input 
                     type="text"
-                    name="First Name"
+                    name="Project Name"
                     id="name"
                     autoComplete="given-name"
                     className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     required={true}/>
                 </div>
 
-                {/*  Last Name */}
-                <div className="col-span-6 sm:col-span-3">
-                  <label 
-                    htmlFor="Name"
-                    className="block text-sm font-medium leading-6 text-gray-900">
-                    Last Name:
-                  </label>
-                  <input 
-                    type="text"
-                    id="name"
-                    name="Last Name"
-                    className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset-focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    required={true} />
-                </div>
-
                 {/* Description */}
                 <div className="col-span-6 sm:col-span-3">
                   <label
                     htmlFor="Description"
-                    className="block text-sm font-medium leading-6 text-gray-900">
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
                     Description:
                   </label>
                   <textarea 
@@ -72,28 +70,61 @@ function Form() {
                   />
                 </div>
 
-                {/*  Task Form */}
+                {/*  Tasks */}
                 <div className="col-span-6 sm:col-span-3">
-                  <label htmlFor="TaskForm">Task Form</label>
+                  <label
+                    htmlFor="TaskForm"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Tasks:
+                  </label>
                   {taskList.map((singleTask,index) => (
-                    <div>
+                    <div key={index}>
                       <div>
                         <input
                           id="taskForm"
                           name="TaskForm"
                           type="text"
-                          className="mt-2 block w-full rounded-md border-0 py-8 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset-focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          className="mt-2 block w-full rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset-focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          required={true}
                         />
-                        <button>
-                          
-                        </button>
+
+                        {/* Shows another task when pressing the add button */}
+                        {taskList.length - 1 == index && taskList.length < 5 && 
+                        (
+                        <div className="py-2">
+                          <button
+                            type="button"
+                            className="whitespace- inline-block rounded bg-teal-100 px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-teal-700 transition duration-150 ease-in-out hover:bg-teal-accent-100 focus:bg-teal-accent-100 focus:outline-non focus:ring-0 active:bg-teal-accent-200"
+                            onClick={handleTaskAdd}
+                          >
+                            <span>add</span>
+                          </button>
+                        </div>
+                        )}
+
+                      </div>
+
+                      {/* Removes a task form when pressing the remove button */}
+                      <div className="remove-button">
+                          {taskList.length > 1 && 
+                          (
+                            <button
+                            type="button"
+                            className="inline-block rounded px-2 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-teal-500 hover:text-teal-600 focus:text-teal-600 focus:outline-none focus:ring-0 active:text-teal-700"
+                            onClick={() => handleTaskRemove(index)}
+                            >
+                            <span>remove</span>
+                          </button>
+                          )}
+
                       </div>
                     </div>
                   ))}
                 </div>
                 
                 {/*  Submit Button */}
-                <button type="submit">
+                <button type="submit" className="inline-block rounded bg-teal-500 px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-teal-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-teal-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-teal-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
                   Submit
                 </button>
               </div>
