@@ -36,7 +36,7 @@ const SingleTaskView = ({
         </Link>
       </div>
 
-      <div className="grid grid-cols-3 h-[80vh] bg-teal-500">
+      <div className="grid grid-cols-2 h-[90vh] bg-teal-500">
         {/* first section */}
         <div className=" p-[50px]">
           <div className="">
@@ -47,29 +47,13 @@ const SingleTaskView = ({
           </div>
         </div>
 
-        {/* middle section */}
-        <div className="  p-[25px] bg-black object-fill">
-          <div className=" h-[100%] flex justify-center items-center bg-white object-fill ">
-            <h1>Example goes here</h1>
-          </div>
-        </div>
-
         {/* input section */}
-        <div>
-          <div className="flex justify-center items-center h-min bg-white border border-black object-fill">
+        <div className=" flex flex-col  items-center bg-black p-[5vh] border-black rounded h-[90vh] w-[50vw]">
+          <div className="flex justify-center items-center h-min bg-white border border-black object-fill h-[15vh] rounded-lg w-[40vw]">
             <h2>{project.task?.description}</h2>
           </div>
-          <div className="flex justify-center items-center p-[25px] ">
-            <div className="flex-col">
-              <div>
-                {project.task?.fields.map((taskField: Field) => (
-                  <div>
-                    <p>{taskField.prompt}</p>
-                    {renderSwitch(taskField)}
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="h-[80vh] flex justify-center items-center p-[25px] bg-black text-3xl">
+            <button className="p-[25px] bg-white border rounded drop-shadow-[0px_0px_20px_rgba(255,255,255,1)] ">start</button>
           </div>
         </div>
       </div>
