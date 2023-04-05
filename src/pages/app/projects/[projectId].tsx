@@ -36,12 +36,12 @@ const SingleTaskView = ({
         </Link>
       </div>
 
-      <div className="grid grid-cols-2 h-[90vh] bg-teal-500">
+      <div className="grid grid-cols-2 h-[90vh] bg-teal-500 ">
         {/* first section */}
-        <div className=" p-[50px]">
+        <div className=" m-[50px] mb-[0px] p-[50px] overflow-y-scroll bg-teal-900 h-[150vh]">
           <div className="">
             <div className="flex-wrap flex-column items-center justify-center">
-              <h1 className=" font-calsans text-7xl bold">{project?.name}</h1>
+              <h1 className=" font-calsans text-7xl bold py-[50px]">{project?.name}</h1>
               <p className=" font-calsans text-3xl ">{project?.description}</p>
             </div>
           </div>
