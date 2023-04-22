@@ -48,7 +48,8 @@ const SingleTaskView = ({
             <div>
               <h1 className="text-5xl mb-2">{project.name}</h1>
               <h4 className="mb-4">
-                Created at: {project.createdAt.toString() ?? "Unknown"}
+                Created at:{" "}
+                {new Date(project.createdAt).toDateString() ?? "Unknown"}
               </h4>
             </div>
             <h3>{project.description}</h3>
