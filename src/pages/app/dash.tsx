@@ -53,7 +53,6 @@ export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const projects = await prisma.project.findMany();
-  prisma.$disconnect();
   //console.dir(projects);
   return { props: { projects: JSON.parse(JSON.stringify(projects)) } };
 };

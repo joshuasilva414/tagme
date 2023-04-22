@@ -1,15 +1,21 @@
 import React from "react";
 import Link from "next/link";
 import Dropdown from "@/components/inputs/Dropdown";
-import { Prisma, FieldType, Field, PrismaClient } from "@prisma/client";
+import {
+  Prisma,
+  FieldType,
+  Field,
+  PrismaClient,
+  Project,
+} from "@prisma/client";
 import backArrow from "public/img/backarrow.png";
+import FieldCard from "@/components/FieldCard";
+import { prisma } from "@/server/db";
 import Image from "next/image";
 import { InferGetServerSidePropsType } from "next";
 
 type Props = {
-  project: Prisma.ProjectGetPayload<{
-    select: { [K in keyof Required<Prisma.ProjectSelect>]: true };
-  }>;
+  project: Project | null;
 };
 
 const renderSwitch: (fieldInput: Field) => JSX.Element = (fieldInput) => {
@@ -26,46 +32,54 @@ const renderSwitch: (fieldInput: Field) => JSX.Element = (fieldInput) => {
 };
 
 const SingleTaskView = ({
-      project,
-    }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  project,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <>
-      <div className="flex items-center h-[10vh] p-[10px] border border-black ">
+      <div className="flex items-center h-[10vh] p-[10px] border bg-teal-500 border-black ">
         <Link href="/app/dash">
           <Image src={backArrow} width={32} alt="back button" />
         </Link>
       </div>
+      {project && (
+        <div className="h-screen bg-gray-200 p-14 ">
+          {/* Project info */}
+          <div className="mb-14 max-w-prose">
+            <div>
+              <h1 className="text-5xl mb-2">{project.name}</h1>
+              <h4 className="mb-4">
+                Created at: {project.createdAt.toString() ?? "Unknown"}
+              </h4>
+            </div>
+            <h3>{project.description}</h3>
+          </div>
 
-      <div className="grid grid-cols-2 h-[90vh] bg-teal-500 ">
-        {/* first section */}
-        <div className=" m-[50px] mb-[0px] p-[50px] overflow-y-scroll bg-teal-900 h-[150vh]">
-          <div className="">
-            <div className="flex-wrap flex-column items-center justify-center">
-              <h1 className=" font-calsans text-7xl bold py-[50px]">{project?.name}</h1>
-              <p className=" font-calsans text-3xl ">{project?.description}</p>
+          {/* Tasks */}
+          <div className="mb-14">
+            <h1 className="text-3xl mb-5">Task</h1>
+            <div className="max-w-prose">
+              <h3>{project.task.description}</h3>
+              <div className="border border-black rounded-md">
+                {project.task.fields.map((idx: number, field: Field) => (
+                  <FieldCard field={field} />
+                ))}
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* input section */}
-        <div className=" flex flex-col  items-center bg-black p-[5vh] border-black rounded h-[90vh] w-[50vw]">
-          <div className="flex justify-center items-center h-min bg-white border border-black object-fill h-[15vh] rounded-lg w-[40vw]">
-            <h2>{project.task?.description}</h2>
-          </div>
-          <div className="h-[80vh] flex justify-center items-center p-[25px] bg-black text-3xl">
-            <button className="p-[25px] bg-white border rounded drop-shadow-[0px_0px_20px_rgba(255,255,255,1)] ">start</button>
+          {/* Dataset */}
+          <div>
+            <h1 className="text-3xl">Dataset</h1>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
 
 export const getServerSideProps = async (context: any) => {
   const { projectId } = context.params;
-  const prisma = new PrismaClient();
   const project = await prisma.project.findUnique({ where: { id: projectId } });
-  await prisma.$disconnect();
   return { props: { project: JSON.parse(JSON.stringify(project)) } };
 };
 
