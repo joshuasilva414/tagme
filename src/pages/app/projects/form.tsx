@@ -1,10 +1,14 @@
 import React from "react";
 import { NextPage } from "next";
 import { useState } from "react";
+import { json } from "stream/consumers";
 
 //  Form
 function Form(props) {
   const [taskList, setTaskList] = useState([{ task: "" }]);
+  const [name, setName] = useState("");
+  const [desc, setDesc] = useState("");
+  const [newProject, setProject] = useState({});
 
   const handleTaskAdd = () => {
     setTaskList([...taskList, { task: "" }]);
@@ -15,6 +19,29 @@ function Form(props) {
     list.splice(index, 1);
     setTaskList(list);
   };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = {
+      name,
+      desc,
+      taskList //for testing purposes (changes will be made by josh)
+    }
+
+    setProject((prevState) => ({
+      ...prevState,
+      data,
+    }));
+
+    const res = await fetch('/api/projects', {
+      method: 'POST',
+      body: JSON.stringify({name, desc}),
+      headers: {
+        'Content-Type': 'app/projects'
+      },
+    }) 
+    
+  }
 
   return (
     <>
@@ -27,7 +54,7 @@ function Form(props) {
         </div>
 
         <div className="mt-5 md:col-span-2 md:mt-0">
-          <form action="/api/projects" method="POST">
+          <form action="/api/projects" method="POST" onSubmit={handleSubmit}>
             {/* Form */}
             <div className="overflow-hidden shadow sm:rounded-md">
               <div className="flex items-start bg-teal-500 px-4 py-5 sm:p-6 h-screen">
@@ -44,7 +71,9 @@ function Form(props) {
                       type="text"
                       name="Project Name"
                       id="name"
+                      value={name}
                       autoComplete="given-name"
+                      onChange={(event) => setName(event.target.value)}
                       className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       required={true}
                     />
@@ -62,6 +91,8 @@ function Form(props) {
                       id="description"
                       name="Description"
                       rows={3}
+                      value={desc}
+                      onChange={(event) => setDesc(event.target.value)}
                       className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset-focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       required={true}
                       defaultValue={""}
