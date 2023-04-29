@@ -29,7 +29,7 @@ const Dash: NextPage<Props> = ({
         </div>
         <div className="flex justify-end">
           <button className="bg-slate-800 text-white m-2 rounded-full aspect-square ease-in-out hover:bg-slate-700 font-bold">
-            <Link href="/app/projects/form">+</Link>
+            <Link href="/app/projects/new">+</Link>
           </button>
         </div>
       </div>
