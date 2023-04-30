@@ -1,7 +1,8 @@
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextApiRequest, NextApiResponse } from 'next';
+import {prisma} from "@/server/db";
 
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   //Guard for POST only methods
   if (req.method !== 'POST') {
@@ -9,16 +10,22 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
-  const name = req.body.name; 
+  const name: string = req.body.name;
   const desc = req.body.desc; 
-  //const tasks = req.body.taskList
+  const tasks = req.body.taskList;
 
-  const newProject = {
-    name,
-    description: desc,
+  try {
+    const newProject = await prisma.project.create({
+    data: {
+      description: desc,
+      name: name,
+      task: tasks
+    }
+  });
+    res.status(201).json(newProject);
+  } catch ({message}) {
+    console.error(message);
+    res.status(500);
   }
-
-  
-  res.status(201).json(newProject);
 
 }

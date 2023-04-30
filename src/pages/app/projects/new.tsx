@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {Task, FieldType} from "@prisma/client";
-import { useState, useEffect } from "react";
+import {useRouter} from "next/router";
 import TaskField from "@/components/inputs/TaskField";
+import {Project} from ".prisma/client";
 
 //  New
 function New() {
+  const router = useRouter();
+
   const [taskList, setTaskList] = useState<Task[]>([{ description: "", fields: [{prompt: "", options: [""], fieldType: FieldType.TEXT}] }]);
   const [name, setName] = useState<string>("");
   const [desc, setDesc] = useState<string>("");
@@ -26,18 +29,24 @@ function New() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = {
-      name,
+      name: name,
       desc,
       taskList
     }
 
     const res = await fetch('/api/projects', {
       method: 'POST',
-      body: JSON.stringify({name, desc, taskList}),
+      body: JSON.stringify(data),
       headers: {
         'Content-Type': 'app/projects'
       },
-    }) 
+    });
+
+    const newProject: Project = await res.json();
+
+    if (res.status == 201) {
+      router.push(`/projects/${newProject.name}`);
+    }
     
   }
 

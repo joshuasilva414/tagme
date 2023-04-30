@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6260a5a3-1777-48f2-ac78-42b87a687e83" name="Changes" comment="Modified taskList state management">
-      <change afterPath="$PROJECT_DIR$/src/pages/api/projects.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/api/form.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/app/projects/form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/app/projects/form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/api/projects.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/projects.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/app/projects/new.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/app/projects/new.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +54,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Rebasing new-project-page",
+    "git-widget-placeholder": "dev",
     "last_opened_file_path": "/Users/joshuasilva/Desktop/CS/WebDev/tagme",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -80,7 +82,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1682806655347</updated>
-      <workItem from="1682806656351" duration="14578000" />
+      <workItem from="1682806656351" duration="15217000" />
+      <workItem from="1682864289377" duration="2640000" />
     </task>
     <task id="LOCAL-00001" summary="Modified taskList state management">
       <created>1682863270710</created>
