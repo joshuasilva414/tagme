@@ -1,13 +1,16 @@
 import React from "react";
-import { NextPage } from "next";
-import { useState } from "react";
+import {Task, FieldType} from "@prisma/client";
+import { useState, useEffect } from "react";
+import TaskField from "@/components/inputs/TaskField";
 
-//  Form
-function Form(props) {
-  const [taskList, setTaskList] = useState([{ task: "" }]);
+//  New
+function New() {
+  const [taskList, setTaskList] = useState<Task[]>([{ description: "", fields: [{prompt: "", options: [""], fieldType: FieldType.TEXT}] }]);
+  const [name, setName] = useState<string>("");
+  const [desc, setDesc] = useState<string>("");
 
   const handleTaskAdd = () => {
-    setTaskList([...taskList, { task: "" }]);
+    setTaskList([...taskList, { description: "", fields: [{prompt: "", options: [""], fieldType: FieldType.TEXT}] }]);
   };
 
   const handleTaskRemove = (index: number) => {
@@ -15,6 +18,28 @@ function Form(props) {
     list.splice(index, 1);
     setTaskList(list);
   };
+
+  useEffect(() => {
+    console.dir(taskList);
+  }, [taskList]);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = {
+      name,
+      desc,
+      taskList
+    }
+
+    const res = await fetch('/api/projects', {
+      method: 'POST',
+      body: JSON.stringify({name, desc, taskList}),
+      headers: {
+        'Content-Type': 'app/projects'
+      },
+    }) 
+    
+  }
 
   return (
     <>
@@ -27,11 +52,11 @@ function Form(props) {
         </div>
 
         <div className="mt-5 md:col-span-2 md:mt-0">
-          <form action="/api/projects" method="POST">
-            {/* Form */}
-            <div className="overflow-hidden shadow sm:rounded-md">
+          <form onSubmit={(e) => handleSubmit(e)}>
+            {/* New */}
+            <div className="overflow-hidden shadow">
               <div className="flex items-start bg-teal-500 px-4 py-5 sm:p-6 h-screen">
-                <div className="grid grid-cols-3 gap-6 w-1/5 rounded-lg bg-white p-5 shadow-lg">
+                <div className="grid grid-cols-3 gap-6 w-3/5 mx-auto rounded-lg bg-white p-5 shadow-lg">
                   {/* Project Name */}
                   <div className="cole-span-6 sm:col-span-3">
                     <label
@@ -44,8 +69,10 @@ function Form(props) {
                       type="text"
                       name="Project Name"
                       id="name"
+                      value={name}
                       autoComplete="given-name"
-                      className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={(event) => setName(event.target.value)}
+                      className="mt-2 block w-full col-start-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       required={true}
                     />
                   </div>
@@ -62,30 +89,26 @@ function Form(props) {
                       id="description"
                       name="Description"
                       rows={3}
+                      value={desc}
+                      onChange={(event) => setDesc(event.target.value)}
                       className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset-focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       required={true}
-                      defaultValue={""}
+                      placeholder={"Enter a short description of the dataset you want to build"}
                     />
                   </div>
 
                   {/*  Tasks */}
                   <div className="col-span-6 sm:col-span-3">
                     <label
-                      htmlFor="TaskForm"
+                      // htmlFor="TaskForm"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Tasks:
                     </label>
-                    {taskList.map((singleTask, index) => (
+                    {taskList.map((singleTask: Task, index: number) => (
                       <div key={index}>
                         <div>
-                          <input
-                            id="taskForm"
-                            name="TaskForm"
-                            type="text"
-                            className="mt-2 block w-full rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset-focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            required={true}
-                          />
+                          <TaskField index={index} task={singleTask} setTaskList={setTaskList}/>
                           <div className="flex align-middle">
                             {/* Shows another task when pressing the add button */}
                             {taskList.length - 1 == index &&
@@ -93,7 +116,7 @@ function Form(props) {
                                 <div className="py-2 flex align-middle">
                                   <button
                                     type="button"
-                                    className="whitespace- inline-block rounded bg-teal-100 px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-teal-700 transition duration-150 ease-in-out hover:bg-teal-accent-100 focus:bg-teal-accent-100 focus:outline-non focus:ring-0 active:bg-teal-accent-200"
+                                    className="inline-block rounded bg-teal-100 px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-teal-700 transition duration-150 ease-in-out hover:bg-teal-accent-100 focus:bg-teal-accent-100 focus:outline-non focus:ring-0 active:bg-teal-accent-200"
                                     onClick={handleTaskAdd}
                                   >
                                     add
@@ -122,7 +145,7 @@ function Form(props) {
                   {/*  Submit Button */}
                   <button
                     type="submit"
-                    className="inline-block rounded bg-teal-500 px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-teal-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-teal-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-teal-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+                    className="block rounded bg-teal-500 px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-teal-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-teal-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-teal-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
                   >
                     Submit
                   </button>
@@ -136,4 +159,4 @@ function Form(props) {
   );
 }
 
-export default Form;
+export default New;

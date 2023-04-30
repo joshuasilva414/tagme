@@ -20,7 +20,7 @@ type Example {
 type Field {
   prompt    String
   options   String[]   @default([])
-  fieldType FieldType?
+  fieldType FieldType? @default(TEXT)
 }
 
 type Task {
