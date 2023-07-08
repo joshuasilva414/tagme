@@ -3,9 +3,17 @@ import {Task, FieldType} from "@prisma/client";
 import {useRouter} from "next/router";
 import TaskField from "@/components/inputs/TaskField";
 import {Project} from ".prisma/client";
+import {GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage} from "next";
+import dummyData from "@/server/seed";
 
-//  New
-function New() {
+type Props = {};
+
+export const getServerSideProps: (ctx: any) => Promise<{}> = async (ctx) => {
+  dummyData(5);
+  return {};
+}
+
+const New: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = () => {
   const router = useRouter();
 
   const [taskList, setTaskList] = useState<Task[]>([{ description: "", fields: [{prompt: "", options: [""], fieldType: FieldType.TEXT}] }]);
@@ -51,7 +59,7 @@ function New() {
   }
 
   return (
-    <>
+    <div>
       <div>
         <div className="bg-white p-5">
           <h1 className="font-calsans text-3xl text-black">New Project Form</h1>
@@ -164,7 +172,7 @@ function New() {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -44,7 +44,7 @@ const Home: NextPage = () => {
               </p>
             </div>
             <div className="row-span-1">
-              <a href="/app/dash" className="bg-teal-500 items-center rounded text-white px-[30px] py-[5px] text-2xl font-sans font-bold ">
+              <a href="/app/projects/index.tsx" className="bg-teal-500 items-center rounded text-white px-[30px] py-[5px] text-2xl font-sans font-bold ">
                 click here to start!
               </a>
             </div>

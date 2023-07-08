@@ -7,47 +7,32 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = env("MONGO_URL")
+  url      = env("DATABASE_URL")
 }
 
-type Example {
-  inputTypes  MediaType[] @default([TEXT])
-  outputTypes MediaType[] @default([TEXT])
-  input       String
-  outputs     String
-}
-
-type Field {
-  prompt    String
-  options   String[]   @default([])
-  fieldType FieldType? @default(TEXT)
-}
-
-type Task {
-  description String
-  fields      Field[]
-}
+// type Task {
+//   description String // Description of this task of the data processing pipeline
+//   outputType  DataType @default(TEXT) // Type of data that comes out of this data processing step
+// }
 
 model Project {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  createdAt   DateTime  @default(now())
-  description String    @default("")
-  task        Task[]
-  examples    Example[]
-  active      Boolean   @default(true)
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  name               String
+  owner              String   @default("user_2SH34C1ypE9UWOw9C6WmeffgBX5")
+  projectDescription String
+  storageUrl         String?
+  inputType          DataType @default(TEXT)
+  outputType         DataType @default(LABEL)
+  classes            String[] @default([])
+  taskDescription    String
+  createdAt          DateTime @default(now())
+  isActive           Boolean  @default(true)
 }
 
-enum MediaType {
-  TEXT
+enum DataType {
   IMAGE
+  IMAGE_MASK
   VIDEO
-  NUMBER
-}
-
-enum FieldType {
-  SINGLE_CLASS
-  MULTI_CLASS
-  IMAGE
   TEXT
+  LABEL
 }

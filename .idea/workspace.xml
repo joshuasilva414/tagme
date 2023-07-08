@@ -4,12 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6260a5a3-1777-48f2-ac78-42b87a687e83" name="Changes" comment="Modified taskList state management">
+    <list default="true" id="6260a5a3-1777-48f2-ac78-42b87a687e83" name="Changes" comment="Added Clerk User Authentication">
+      <change afterPath="$PROJECT_DIR$/src/pages/api/trpc/[trpc].ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/context.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/routers/_app.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/routers/projects.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/seed.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/trpc.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/router.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/trpc.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_30_23,_9_03_AM_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_30_23__9_03_AM__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/api/form.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/api/projects.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/projects.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/env.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/src/env.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/api/projects.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/app/dash.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/app/projects/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/app/projects/[projectId].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/app/projects/[projectId].tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/app/projects/new.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/app/projects/new.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/app/register/[[...index]].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/app/register/[[...index]].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/app/sign-in/[[...index]].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/app/sign-in/[[...index]].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/db.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/db/client.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +46,7 @@
         <option value="com.haulmont.rcb.useInitial" />
         <option value="com.haulmont.rcb.README" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -42,6 +64,9 @@
       <scroll-view-position x="0" y="0" />
     </layout>
   </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="wbhxpxdo" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -50,22 +75,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "dev",
-    "last_opened_file_path": "/Users/joshuasilva/Desktop/CS/WebDev/tagme",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "settings.editor.selected.configurable": "editor.preferences.gutterIcons",
-    "ts.external.directory.path": "/Users/joshuasilva/Desktop/CS/WebDev/tagme/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/joshuasilva/Dev/Web/tagme&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.gutterIcons&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/joshuasilva/Dev/Web/tagme/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -73,6 +98,15 @@
         <entry key="com.haulmont.rcb.reactInspector" value="false" />
       </map>
     </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/pages/app/projects" />
+      <recent name="$PROJECT_DIR$/src/server/db" />
+      <recent name="$PROJECT_DIR$/src/pages/app" />
+      <recent name="$PROJECT_DIR$/src/pages/app/auth/sign-in" />
+      <recent name="$PROJECT_DIR$/src/pages/app/auth" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -83,7 +117,11 @@
       <option name="presentableId" value="Default" />
       <updated>1682806655347</updated>
       <workItem from="1682806656351" duration="15217000" />
-      <workItem from="1682864289377" duration="2640000" />
+      <workItem from="1682864289377" duration="2697000" />
+      <workItem from="1688514847597" duration="757000" />
+      <workItem from="1688516081130" duration="8163000" />
+      <workItem from="1688661168044" duration="1824000" />
+      <workItem from="1688784306892" duration="27232000" />
     </task>
     <task id="LOCAL-00001" summary="Modified taskList state management">
       <created>1682863270710</created>
@@ -99,7 +137,30 @@
       <option name="project" value="LOCAL" />
       <updated>1682863344401</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Last commit before ACM Banquet">
+      <created>1682867071297</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1682867071297</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Switched to Railway hosted mongodb">
+      <option name="closed" value="true" />
+      <created>1688517621313</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1688517621313</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added Clerk User Authentication">
+      <option name="closed" value="true" />
+      <created>1688792683806</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1688792683806</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -119,6 +180,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Changes for presentation" />
     <MESSAGE value="Modified taskList state management" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modified taskList state management" />
+    <MESSAGE value="Last commit before ACM Banquet" />
+    <MESSAGE value="Switched to Railway hosted mongodb" />
+    <MESSAGE value="Added Clerk User Authentication" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Clerk User Authentication" />
   </component>
 </project>

@@ -31,7 +31,7 @@ const Navbar: FunctionComponent = () => {
         <div className="flex justify-end items-center ">
           <span className="bg-gray-300 rounded-full hover:scale-105 ease-in-out">
             <Link
-              href="/app/dash"
+              href="/app/projects/index"
               className="bg-gray-900 rounded-full text-white px-[30px] py-[5px] text-2xl font-sans font-bold translate-y-[-3px]"
             >
               get started
