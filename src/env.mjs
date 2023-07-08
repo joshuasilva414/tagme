@@ -8,10 +8,10 @@ const server = z.object({
   DATABASE_URL: z.string().url(),
   NODE_ENV: z.enum(["development", "test", "production"]),
   CLERK_SECRET_KEY: z.string(),
-  NEXT_PUBLIC_CLERK_SIGN_IN_URL: z.string().url(),
-  NEXT_PUBLIC_CLERK_SIGN_UP_URL: z.string().url(),
-  NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: z.string().url(),
-  NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: z.string().url(),
+  NEXT_PUBLIC_CLERK_SIGN_IN_URL: z.string(),
+  NEXT_PUBLIC_CLERK_SIGN_UP_URL: z.string(),
+  NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: z.string(),
+  NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: z.string(),
 });
 
 /**
