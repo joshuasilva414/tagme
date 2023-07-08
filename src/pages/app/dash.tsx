@@ -9,6 +9,7 @@ import Link from "next/link";
 import { Prisma, Project } from "@prisma/client";
 import { prisma } from "@/server/db";
 import ProjectCard from "@/components/dash/ProjectCard";
+import {UserButton} from "@clerk/nextjs";
 
 type Props = {
   projects: Prisma.ProjectGetPayload<{
@@ -21,7 +22,11 @@ const Dash: NextPage<Props> = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <div className="bg-white h-screen">
+      <div className="flex w-full justify-end p-2">
+        <UserButton afterSignOutUrl="/"/>
+      </div>
       <div className="w-full max-w-[1200px] mx-auto pt-10 border-b-gray-200 border-b-2 grid grid-cols-2">
+
         <div className="flex items-center">
           <h1 className="font-calsans text-6xl text-black text-shadow-gray">
             Projects
